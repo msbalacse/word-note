@@ -8,4 +8,10 @@ Make the website all the posibility function like the notion .
 
 #### TODO
 - Create a New Entry
-- Make user base entry 
+- Make user base entry
+
+
+#### Resources 
+---
+**Excalidraw Plan**
+https://excalidraw.com/#json=mUEmJ6SHmonsxZaUaaD8T,DZNlTwAs5Rk_m6utN0zWmA
