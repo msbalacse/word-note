@@ -3,7 +3,7 @@ import NewEntry from "../Component/NewEntry";
 
 const Dashboard = () => {
   return (
-    <div>
+    <div className='grid grid-cols-1 md:grid-cols-3 gap-4 p-4'>
       <NewEntry />
       <MyTable />
     </div>

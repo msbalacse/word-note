@@ -1,7 +1,7 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useAuth } from "@/context/AuthContext";
 import { db } from "@/firebase/config";
 import { addDoc, collection } from "firebase/firestore";
 import { useState } from "react";
@@ -16,10 +16,13 @@ type TNewEntry = {
   example_sentence_1: string;
   example_sentence_2: string;
   example_sentence_3: string;
+  created_at?: string;
+  created_by?: string;
 };
 
 const NewEntry = () => {
-  // State for each field dynamically
+  const { user } = useAuth();
+
   const [formData, setFormData] = useState<TNewEntry>({
     word: "",
     tamil_meaning: "",
@@ -33,7 +36,6 @@ const NewEntry = () => {
 
   const [loading, setLoading] = useState(false);
 
-  // Handle input change
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -42,7 +44,6 @@ const NewEntry = () => {
     }));
   };
 
-  // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -57,7 +58,6 @@ const NewEntry = () => {
       example_sentence_3,
     } = formData;
 
-    // Basic validation to check if fields are filled
     if (
       !word ||
       !tamil_meaning ||
@@ -72,13 +72,15 @@ const NewEntry = () => {
       return;
     }
 
-    setLoading(true); // Start loading before submitting
+    setLoading(true);
 
     try {
-      // Add the new entry to Firestore
-      await addDoc(collection(db, "today"), formData);
+      await addDoc(collection(db, "today"), {
+        ...formData,
+        created_at: new Date().toISOString(),
+        created_by: user?.username,
+      });
 
-      // Reset form and notify user
       setFormData({
         word: "",
         tamil_meaning: "",
@@ -99,7 +101,7 @@ const NewEntry = () => {
   };
 
   return (
-    <div className='mt-4 w-1/3 mx-auto'>
+    <div className='mt-4 w-full mx-auto'>
       <h2 className='text-lg font-semibold'>Add New Entry</h2>
       <form onSubmit={handleSubmit} className='space-y-4'>
         {/* Dynamically render form fields */}
@@ -108,18 +110,6 @@ const NewEntry = () => {
             <Label className='text-xs font-medium'>
               {key.replaceAll("_", " ").toUpperCase()}
             </Label>
-            {/* <label htmlFor={key} className='block'>
-              {key}
-            </label> */}
-            {/* <input
-              id={key}
-              name={key}
-              type='text'
-              value={formData[key as keyof TNewEntry]}
-              onChange={handleChange}
-              className='border p-2 w-full'
-              required
-            /> */}
             <Input
               id={key}
               name={key}

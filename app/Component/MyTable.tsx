@@ -26,7 +26,6 @@ export default function MyTable() {
 
   const columnHelper = createColumnHelper<Entry>();
 
-  // Define the table columns, including new fields
   const columns = [
     columnHelper.accessor("word", {
       cell: (info) => info.getValue(),
@@ -99,7 +98,7 @@ export default function MyTable() {
   }, []);
 
   return (
-    <div className='p-2'>
+    <div className='p-2 md:col-span-2'>
       <table className='text-black bg-white w-full'>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
