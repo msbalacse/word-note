@@ -1,7 +1,19 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import { db } from "@/firebase/config";
 import { addDoc, collection } from "firebase/firestore";
 import { useState } from "react";
+
+type TNewEntry = {
+  word: string;
+  tamil_meaning: string;
+  opposite_word: string;
+  opposite_word_tamil_meaning: string;
+  part_of_speech: string;
+  example_sentence_1: string;
+  example_sentence_2: string;
+  example_sentence_3: string;
+}
 
 const NewEntry = () => {
   const [name, setName] = useState("");
@@ -69,6 +81,7 @@ const NewEntry = () => {
           Add Entry
         </button>
       </form>
+      <Button>Send</Button>
     </div>
   );
 };
