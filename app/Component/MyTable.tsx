@@ -9,28 +9,63 @@ import {
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/firebase/config";
 
-type Person = {
-  name: string;
-  tamil: string;
+// Define the structure of the data to match the fields in the new entry form
+type Entry = {
+  word: string;
+  tamil_meaning: string;
+  opposite_word: string;
+  opposite_word_tamil_meaning: string;
+  part_of_speech: string;
+  example_sentence_1: string;
+  example_sentence_2: string;
+  example_sentence_3: string;
 };
 
 export default function MyTable() {
-  const [data, setData] = React.useState<Person[]>([
-    { name: "John", tamil: "Doe" },
-  ]);
+  const [data, setData] = React.useState<Entry[]>([]);
 
-  const columnHelper = createColumnHelper<Person>();
+  const columnHelper = createColumnHelper<Entry>();
 
+  // Define the table columns, including new fields
   const columns = [
-    columnHelper.accessor("name", {
+    columnHelper.accessor("word", {
       cell: (info) => info.getValue(),
-      header: () => <span>Name</span>,
+      header: () => <span>Word</span>,
       footer: (info) => info.column.id,
     }),
-    columnHelper.accessor((row) => row.tamil, {
-      id: "tamil",
-      cell: (info) => <i>{info.getValue()}</i>,
-      header: () => <span>Tamil</span>,
+    columnHelper.accessor("tamil_meaning", {
+      cell: (info) => info.getValue(),
+      header: () => <span>Tamil Meaning</span>,
+      footer: (info) => info.column.id,
+    }),
+    columnHelper.accessor("opposite_word", {
+      cell: (info) => info.getValue(),
+      header: () => <span>Opposite Word</span>,
+      footer: (info) => info.column.id,
+    }),
+    columnHelper.accessor("opposite_word_tamil_meaning", {
+      cell: (info) => info.getValue(),
+      header: () => <span>Opposite Tamil Meaning</span>,
+      footer: (info) => info.column.id,
+    }),
+    columnHelper.accessor("part_of_speech", {
+      cell: (info) => info.getValue(),
+      header: () => <span>Part of Speech</span>,
+      footer: (info) => info.column.id,
+    }),
+    columnHelper.accessor("example_sentence_1", {
+      cell: (info) => info.getValue(),
+      header: () => <span>Example Sentence 1</span>,
+      footer: (info) => info.column.id,
+    }),
+    columnHelper.accessor("example_sentence_2", {
+      cell: (info) => info.getValue(),
+      header: () => <span>Example Sentence 2</span>,
+      footer: (info) => info.column.id,
+    }),
+    columnHelper.accessor("example_sentence_3", {
+      cell: (info) => info.getValue(),
+      header: () => <span>Example Sentence 3</span>,
       footer: (info) => info.column.id,
     }),
   ];
@@ -46,31 +81,34 @@ export default function MyTable() {
       const querySnapshot = await getDocs(collection(db, "today"));
       const documents = querySnapshot.docs.map((doc) => doc.data());
 
-      // Make sure to map the documents into the expected structure for the data state
-      const people: Person[] = documents.map((item) => ({
-        name: item.name,
-        tamil: item.tamil,
+      const entries: Entry[] = documents.map((item) => ({
+        word: item.word,
+        tamil_meaning: item.tamil_meaning,
+        opposite_word: item.opposite_word,
+        opposite_word_tamil_meaning: item.opposite_word_tamil_meaning,
+        part_of_speech: item.part_of_speech,
+        example_sentence_1: item.example_sentence_1,
+        example_sentence_2: item.example_sentence_2,
+        example_sentence_3: item.example_sentence_3,
       }));
 
-      setData(people); // Update the data state
+      setData(entries);
     };
 
     fetchData();
   }, []);
 
-  // Log data in a separate effect to see the updated value after state change
-  React.useEffect(() => {
-    console.log(data);
-  }, [data]); // This will log every time the 'data' state changes
-
   return (
     <div className='p-2'>
-      <table className='text-black bg-white'>
+      <table className='text-black bg-white w-full'>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <th key={header.id}>
+                <th
+                  key={header.id}
+                  className='border border-gray-400 border-solid bg-yellow-300 p-2'
+                >
                   {header.isPlaceholder
                     ? null
                     : flexRender(
@@ -86,17 +124,14 @@ export default function MyTable() {
           {table.getRowModel().rows.map((row) => (
             <tr key={row.id}>
               {row.getVisibleCells().map((cell) => (
-                <td
-                  className='border border-gray-400 border-solid'
-                  key={cell.id}
-                >
+                <td key={cell.id} className='border border-gray-400 p-2'>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}
             </tr>
           ))}
         </tbody>
-        <tfoot>
+        {/* <tfoot>
           {table.getFooterGroups().map((footerGroup) => (
             <tr key={footerGroup.id}>
               {footerGroup.headers.map((header) => (
@@ -114,12 +149,8 @@ export default function MyTable() {
               ))}
             </tr>
           ))}
-        </tfoot>
+        </tfoot> */}
       </table>
-      {/* <div className='h-4' />
-      <button onClick={() => rerender()} className='border p-2'>
-        Rerender
-      </button> */}
     </div>
   );
 }
