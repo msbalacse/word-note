@@ -3,19 +3,52 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --wn-text-default-light: #37352F;
+  --wn-background-default-light: #FFFFFF;
+  --wn-text-gray-light: #787774;
+  --wn-background-gray-light: #F1F1EF;
+  --wn-text-brown-light: #9F6B53;
+  --wn-background-brown-light: #F4EEEE;
+  --wn-text-orange-light: #D9730D;
+  --wn-background-orange-light: #FAEBDD;
+  --wn-text-yellow-light: #CB912F;
+  --wn-background-yellow-light: #FBF3DB;
+  --wn-text-green-light: #448361;
+  --wn-background-green-light: #EDF3EC;
+  --wn-text-blue-light: #337EA9;
+  --wn-background-blue-light: #E7F3F8;
+  --wn-text-purple-light: #9065B0;
+  --wn-background-purple-light: #F6F3F9;
+  --wn-text-pink-light: #C14C8A;
+  --wn-background-pink-light: #FAF1F5;
+  --wn-text-red-light: #D44C47;
+  --wn-background-red-light: #FDEBEC;
+
+  --wn-text-default-dark: #D4D4D4;
+  --wn-background-default-dark: #191919;
+  --wn-text-gray-dark: #979A9B;
+  --wn-background-gray-dark: #454B4E;
+  --wn-text-brown-dark: #937264;
+  --wn-background-brown-dark: #594A3A;
+  --wn-text-orange-dark: #FFA344;
+  --wn-background-orange-dark: #594A3A;
+  --wn-text-yellow-dark: #FFDC49;
+  --wn-background-yellow-dark: #59563B;
+  --wn-text-green-dark: #4DAB9A;
+  --wn-background-green-dark: #354C4B;
+  --wn-text-blue-dark: #529CCA;
+  --wn-background-blue-dark: #364954;
+  --wn-text-purple-dark: #9A6DD7;
+  --wn-background-purple-dark: #443F57;
+  --wn-text-pink-dark: #E255A1;
+  --wn-background-pink-dark: #533B4C;
+  --wn-text-red-dark: #FF7369;
+  --wn-background-red-dark: #594141;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
 
 body {
-  color: var(--foreground);
-  background: var(--background);
+  color: var(--wn-text-default-light);
+  background: var(--wn-background-default-light);
   font-family: Arial, Helvetica, sans-serif;
 }

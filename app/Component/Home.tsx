@@ -1,7 +1,6 @@
-// pages/index.js
 'use client'
 import { useEffect, useState } from 'react';
-import { collection, getDocs } from 'firebase/firestore'; // Firestore functions
+import { collection, getDocs } from 'firebase/firestore'; 
 import { db } from '@/firebase/config';
 
 const Home = () => {
@@ -14,7 +13,6 @@ const Home = () => {
     const fetchData = async () => {
       const querySnapshot = await getDocs(collection(db, 'today'));
       const documents = querySnapshot.docs.map(doc => doc.data());
-      console.log(documents);
       setData(documents);
     };
 
