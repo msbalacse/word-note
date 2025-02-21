@@ -104,9 +104,8 @@ const NewEntry = () => {
     <div className='mt-4 w-full mx-auto'>
       <h2 className='text-lg font-semibold'>Add New Entry</h2>
       <form onSubmit={handleSubmit} className='space-y-4'>
-        {/* Dynamically render form fields */}
         {Object.keys(formData).map((key) => (
-          <div key={key}>
+          <div key={key} className="grid grid-cols-2 ">
             <Label className='text-xs font-medium'>
               {key.replaceAll("_", " ").toUpperCase()}
             </Label>
@@ -116,7 +115,7 @@ const NewEntry = () => {
               type='text'
               value={formData[key as keyof TNewEntry]}
               onChange={handleChange}
-              className='border p-2 w-full'
+              className='border-none p-2 w-full '
               required
             />
           </div>

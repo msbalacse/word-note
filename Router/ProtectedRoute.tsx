@@ -9,9 +9,9 @@ const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     if (!user) {
       console.log("User not authenticated, redirecting to login");
-      router.push('/login');
+      router.push("/login");
     }
-  }, [user, router]); 
+  }, [user, router]);
   if (!user) {
     return <div>Loading...</div>;
   }
